@@ -7,32 +7,24 @@
 
 
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-  <h3>Log In</h3>
+  <h3>Please login before using the site</h3>
 
-  @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
-  {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    <script src="https://cdn.auth0.com/js/lock-7.5.min.js"></script>
+    <script type="text/javascript">
 
-    <div class="form-group required">
-      @Html.LabelFor(m => m.UserNameOrEmail)
-      @Html.TextBoxFor(m => m.UserNameOrEmail, new { @class = "form-control" })
-      @Html.ValidationMessageFor(m => m.UserNameOrEmail)
-    </div>
-    <div class="form-group required">
-      @Html.LabelFor(m => m.Password) (@Html.ActionLink("forgot password", "ForgotPassword"))
-      @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-      @Html.ValidationMessageFor(m => m.Password)
-    </div>
-    <div class="form-group">
-      @Html.CheckBoxFor(m => m.RememberMe)
-      @Html.LabelFor(m => m.RememberMe)
-    </div>
-    <div class="form-group">
-      <input type="submit" value="Log in" class="btn btn-success" />
-    </div>
-    <p class="text-muted">
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-  }
+        var lock = new Auth0Lock('hL9PNvOlAPUqbSptATKY1k5HsqrKrtd2', 'htbox.auth0.com');
+
+        function signin() {
+            lock.show({
+                callbackURL: 'http://localhost:2077/Account/Callback'
+              , responseType: 'code'
+              , authParams: {
+                  scope: 'openid profile'
+              }
+            });
+        }
+    </script>
+    <button onclick="signin()">Login</button>
+    <p />
+    <div style="font-size: small">If you need to sign up, still click Login in.<br />There will be a link to sign up at the bottom :)</div>    
 </div>
