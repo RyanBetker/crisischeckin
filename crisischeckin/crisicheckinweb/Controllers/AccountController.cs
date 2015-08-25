@@ -29,6 +29,14 @@ namespace crisicheckinweb.Controllers
             _messageService = messageService;
         }
 
+        [AllowAnonymous]
+        public ActionResult Callback(string returnUrl)
+        {
+            //TODO: Auth0 security code Hookup to webSecurity needed.
+
+            return RedirectToLocal(returnUrl);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
