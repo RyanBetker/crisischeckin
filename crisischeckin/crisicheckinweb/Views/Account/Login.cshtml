@@ -1,4 +1,5 @@
-﻿@model crisicheckinweb.ViewModels.LoginModel
+﻿@using System.Configuration
+@model crisicheckinweb.ViewModels.LoginModel
 
 @{
   ViewBag.Title = "Log in to existing account...";
@@ -12,11 +13,16 @@
         <script src="https://cdn.auth0.com/js/lock-7.5.min.js"></script>
         <script>
 
-            var lock = new Auth0Lock('hL9PNvOlAPUqbSptATKY1k5HsqrKrtd2', 'htbox.auth0.com');
+            if (!window.location.origin) {
+                window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            }
+
+            var lock = new Auth0Lock('@ConfigurationManager.AppSettings["auth0:ClientId"]', '@ConfigurationManager.AppSettings["auth0:Domain"]');
+
             
             lock.show({
                 container: 'root'
-              , callbackURL: 'http://localhost:2077/Account/Callback'
+              , callbackURL: window.location.origin + '/Account/Callback'
               , responseType: 'code'
               , authParams: {
                   scope: 'openid profile'
