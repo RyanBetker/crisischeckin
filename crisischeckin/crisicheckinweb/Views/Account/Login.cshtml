@@ -8,23 +8,20 @@
 
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
   <h3>Please login before using the site</h3>
+    <div id="root" style="width: 300px; margin: 40px auto; padding: 10px; border-style: none; border-width: 1px;">
+        <script src="https://cdn.auth0.com/js/lock-7.5.min.js"></script>
+        <script>
 
-    <script src="https://cdn.auth0.com/js/lock-7.5.min.js"></script>
-    <script type="text/javascript">
-
-        var lock = new Auth0Lock('hL9PNvOlAPUqbSptATKY1k5HsqrKrtd2', 'htbox.auth0.com');
-
-        function signin() {
+            var lock = new Auth0Lock('hL9PNvOlAPUqbSptATKY1k5HsqrKrtd2', 'htbox.auth0.com');
+            
             lock.show({
-                callbackURL: 'http://localhost:2077/Account/Callback'
+                container: 'root'
+              , callbackURL: 'http://localhost:2077/Account/Callback'
               , responseType: 'code'
               , authParams: {
                   scope: 'openid profile'
               }
             });
-        }
-    </script>
-    <button onclick="signin()">Login</button>
-    <p />
-    <div style="font-size: small">If you need to sign up, still click Login in.<br />There will be a link to sign up at the bottom :)</div>    
+        </script>
+    </div>
 </div>
